@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css?family=Share+Tech+Mono');
+@import url('https://fonts.googleapis.com/css?family=Patua+One');
+
+html {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 16px;
+}
+
+body {
+  background-color: #272c35;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.container {
+  height: 100vh;
+  width: 100vh;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  perspective: 1000px;
+}
+
+.container-label {
+  color: #707b88;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: -3rem;
+  margin-bottom: 3rem;
+}
+
+.card-container {
+  display: flex;
+  font-family: 'Patua One', sans-serif;
+}
+
+.card {
+  cursor: grab;
+  width: 10rem;
+  height: 14rem;
+  margin: 0 0.5rem;
+  position: relative;
+  text-align: center;
+  transition: transform 1s ease;
+  transform-style: preserve-3d;
+}
+.card.flipped {
+  transform: rotateY(180deg);
+}
+
+.card-back, .card-front {
+  backface-visibility: hidden;
+  display: flex;
+  border-radius: 1rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.card-back {
+  background-color: #F53D4E;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-back-number {
+  background-color: white;
+  color: #F53D4E;
+  font-family: monospace;
+  font-size: 3rem;
+  font-weight: bold;
+  padding: 1rem;
+  border-radius: 50%;
+  width: 3.5rem;
+  height: 3.5rem;
+}
+
+.card-front {
+  box-sizing: border-box;
+  background-color: #F53D4E;
+  color: #F53D4E;
+
+  font-size: 1.5rem;
+  font-weight: bold;
+
+  flex-direction: column;
+  justify-content: center;
+  border: 1rem solid #F53D4E;
+
+  transform: rotateY(180deg);
+}
+
+.card-name {
+  border-radius: 0.3rem;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  line-height: 12rem;
+}
