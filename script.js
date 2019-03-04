@@ -1,41 +1,7 @@
-// https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
-// https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#The_modern_algorithm
-function shuffle(a) {
-    let j, x, i;
-    for (i = a.length - 1; i > 0; i--) {
-        j = Math.floor(Math.random() * (i + 1));
-        x = a[i];
-        a[i] = a[j];
-        a[j] = x;
-    }
-    return a;
-}
-const d = document;
-const names = shuffle([
-    'Asim',
-    'Betty',
-    'Bradley',
-    'Brett',
-    'Bryan',
-    'Chris',
-    'Drew',
-    'Dom',
-    'G',
-    'Gregory',
-    'Jesse',
-    'John',
-    'Jordan',
-    'Megan',
-    'Mike',
-    'Rich',
-    'Tyler',
-    'Xiaojun',
-    'Ytalo'
-]);
+import Utils from '/standup/Utils.js';
 
-function pronounce(name) {
-    return name === 'Asim' ? 'Ahhsim' : name;
-}
+const d = document;
+const names = Utils.names
 
 // voice
 window.speechSynthesis.getVoices();
@@ -60,23 +26,25 @@ const randomCongrats = () => congrats[Math.floor(Math.random() * congrats.length
 
 // pick 3 random names
 let namePointer = names.length - 1;
-const getName = (list) => {
+function getName(list) {
     namePointer = (namePointer + 1) % names.length;
     return names[namePointer];
 }
+function setCardName(card, name) {
+    card.setAttribute('data-pronounce', name.spoken || name.value);
+    card.querySelector('.card-name').innerHTML = name.value;
+}
 
 d.querySelectorAll('.card').forEach(card => {
-    const randomName = getName(names);
-    card.querySelector('.card-name').textContent = randomName;
+    setCardName(card, getName(names));
 
     card.addEventListener('click', () => {
         if (!card.classList.contains('flipped')) {
-            window.setTimeout(() => say(pronounce(card.querySelector('.card-name').textContent) + ' is the winner. ' + randomCongrats()), 500);
+            window.setTimeout(() => say(card.getAttribute('data-pronounce') + ' is the winner. ' + randomCongrats()), 500);
         } else {
             say('Never mind');
             window.setTimeout(() => {
-                const newName = getName(names);
-                card.querySelector('.card-name').textContent = newName;
+                setCardName(card, getName(names));
             }, 1000);
         }
         card.classList.toggle('flipped');
